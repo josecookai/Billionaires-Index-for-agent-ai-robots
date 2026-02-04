@@ -2,6 +2,187 @@ const fmtUsdB = (b) => `${b.toFixed(2)}B`;
 const fmtChg = (v) => (v >= 0 ? `+${v.toFixed(2)}B` : `${v.toFixed(2)}B`);
 const clsChg = (v) => (v > 0 ? "good" : v < 0 ? "bad" : "neutral");
 
+const I18N = {
+  zh: {
+    "app.logo.index": "SNW • AI/ROBOTICS • INDEX",
+    "app.logo.entity": "SNW • ENTITY VIEW",
+    "app.logo.help": "SNW • HELP",
+    "app.cmd": "CMD",
+    "app.paletteHint": "⌘/Ctrl+K 面板",
+    "app.asof": "ASOF",
+    "app.backIndex": "返回 INDEX",
+    "nav.index": "SNW INDEX",
+    "nav.entity": "ENTITY",
+    "nav.help": "HELP",
+    "nav.planning": "PLANNING",
+    "nav.inputs": "SNW INPUTS",
+    "nav.rules": "SNW RULES",
+    "nav.db": "DB SCHEMA",
+    "notes.title": "NOTES",
+    "notes.subtitle": "Bloomberg-terminal 风格：密度高、键盘驱动、三栏架构（导航 / 主内容 / 上下文）。",
+    "index.title": "AI/ROBOTICS — TOP 200 (DEMO)",
+    "index.subtitle": "SNW = (V_compute + V_phys)*gamma + V_econ*mu + V_crypto + [V_data]",
+    "index.filters": "FILTERS",
+    "index.hoverHint": "hover 行 → 右侧上下文",
+    "filter.type": "TYPE",
+    "filter.q": "Q",
+    "filter.qhint": "用 CMD: find <text>",
+    "table.rankEntity": "RANK • ENTITY",
+    "table.snw": "SNW",
+    "table.d1": "Δ1D",
+    "table.d1p": "Δ1D%",
+    "table.ytd": "YTD",
+    "table.ytdp": "YTD%",
+    "table.type": "TYPE",
+    "right.context": "CONTEXT",
+    "right.entity": "ENTITY",
+    "right.meta": "META",
+    "right.tags": "TAGS",
+    "right.actions": "ACTIONS",
+    "right.cmdExamples": "CMD 示例：",
+    "entity.breakdown": "可解释分解 + 时间序列（原型）",
+    "entity.history": "SNW HISTORY",
+    "entity.components": "COMPONENTS",
+    "entity.audit": "AUDIT TRAIL",
+    "entity.auditHint": "MVP：每个输入都挂 source_document 与生效期；计算时把关键输入写入 inputs_json 便于回放。",
+    "help.title": "KEYBOARD-FIRST PROTOTYPE",
+    "help.subtitle": "Dense, auditable, explainable SNW index UI.",
+    "help.commands": "COMMANDS",
+    "help.layout": "SCREEN LAYOUT (WIREFRAME)",
+    "help.tokens": "DESIGN TOKENS",
+    "help.arch": "UI ARCH",
+    "help.archHint": "三栏结构（Bloomberg-terminal 风格）：Left 导航/模块；Center 主视图；Right 上下文/解释/动作；底部 ticker 负责“实时感”。",
+    "lang.label": "语言",
+    "lang.zh": "中文",
+    "lang.en": "English",
+    "cat.Foundation": "基础模型",
+    "cat.Robotics": "机器人",
+    "cat.Finance": "金融",
+    "cat.Research": "研究",
+    "cat.Autonomy": "自动驾驶/自治",
+    "cat.Social/X": "社交/X",
+    "cat.Healthcare": "医疗",
+    "cat.Web3/DeFi": "Web3/DeFi",
+    "cat.Education": "教育",
+    "cat.Creative": "创意",
+    "cat.Infrastructure": "基础设施",
+    "cat.E-commerce": "电商",
+    "cat.Logistics": "物流",
+    "cat.Social/Entertain": "社交/娱乐",
+    "cat.Gov/Defense": "政务/国防",
+    "cat.Cybersec": "网络安全",
+    "cat.Agriculture": "农业",
+    "cat.Legal": "法律",
+    "cat.DevTools": "开发工具",
+    "cat.Telecom": "通信",
+    "cat.Security": "安防",
+    "cat.Web3/Infra": "Web3/基础设施",
+    "cat.Science": "科学"
+  },
+  en: {
+    "app.logo.index": "SNW • AI/ROBOTICS • INDEX",
+    "app.logo.entity": "SNW • ENTITY VIEW",
+    "app.logo.help": "SNW • HELP",
+    "app.cmd": "CMD",
+    "app.paletteHint": "⌘/Ctrl+K palette",
+    "app.asof": "ASOF",
+    "app.backIndex": "BACK INDEX",
+    "nav.index": "SNW INDEX",
+    "nav.entity": "ENTITY",
+    "nav.help": "HELP",
+    "nav.planning": "PLANNING",
+    "nav.inputs": "SNW INPUTS",
+    "nav.rules": "SNW RULES",
+    "nav.db": "DB SCHEMA",
+    "notes.title": "NOTES",
+    "notes.subtitle": "Bloomberg-terminal style: dense, keyboard-first, 3-column layout (nav / main / context).",
+    "index.title": "AI/ROBOTICS — TOP 200 (DEMO)",
+    "index.subtitle": "SNW = (V_compute + V_phys)*gamma + V_econ*mu + V_crypto + [V_data]",
+    "index.filters": "FILTERS",
+    "index.hoverHint": "hover row → right context",
+    "filter.type": "TYPE",
+    "filter.q": "Q",
+    "filter.qhint": "Use CMD: find <text>",
+    "table.rankEntity": "RANK • ENTITY",
+    "table.snw": "SNW",
+    "table.d1": "Δ1D",
+    "table.d1p": "Δ1D%",
+    "table.ytd": "YTD",
+    "table.ytdp": "YTD%",
+    "table.type": "TYPE",
+    "right.context": "CONTEXT",
+    "right.entity": "ENTITY",
+    "right.meta": "META",
+    "right.tags": "TAGS",
+    "right.actions": "ACTIONS",
+    "right.cmdExamples": "CMD examples:",
+    "entity.breakdown": "Explainable breakdown + time series (prototype)",
+    "entity.history": "SNW HISTORY",
+    "entity.components": "COMPONENTS",
+    "entity.audit": "AUDIT TRAIL",
+    "entity.auditHint": "MVP: every input has source_document + validity; write key inputs into inputs_json for replay.",
+    "help.title": "KEYBOARD-FIRST PROTOTYPE",
+    "help.subtitle": "Dense, auditable, explainable SNW index UI.",
+    "help.commands": "COMMANDS",
+    "help.layout": "SCREEN LAYOUT (WIREFRAME)",
+    "help.tokens": "DESIGN TOKENS",
+    "help.arch": "UI ARCH",
+    "help.archHint": "3-column Bloomberg-terminal layout: Left nav/modules; Center main view; Right context/explain/actions; bottom ticker for “live feel”.",
+    "lang.label": "Language",
+    "lang.zh": "中文",
+    "lang.en": "English"
+  }
+};
+
+function getLang() {
+  const raw = (localStorage.getItem("snw_lang") || "").trim().toLowerCase();
+  if (raw === "en" || raw === "zh") return raw;
+  const nav = (navigator.language || "").toLowerCase();
+  return nav.startsWith("zh") ? "zh" : "en";
+}
+
+function setLang(lang) {
+  localStorage.setItem("snw_lang", lang);
+  applyI18n();
+}
+
+function t(key) {
+  const lang = getLang();
+  return (I18N[lang] && I18N[lang][key]) || (I18N.en && I18N.en[key]) || key;
+}
+
+function catLabel(category) {
+  const lang = getLang();
+  if (lang !== "zh") return category ?? "—";
+  if (!category) return "—";
+  const k = `cat.${category}`;
+  const v = I18N.zh[k];
+  return v || category;
+}
+
+function applyI18n() {
+  document.documentElement.lang = getLang() === "zh" ? "zh-CN" : "en";
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (!key) return;
+    el.textContent = t(key);
+  });
+  document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-ph");
+    if (!key) return;
+    el.setAttribute("placeholder", t(key));
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-title");
+    if (!key) return;
+    el.setAttribute("title", t(key));
+  });
+  document.querySelectorAll("[data-lang-pill]").forEach((el) => {
+    const lang = getLang();
+    el.textContent = `${t("lang.label")}: ${lang === "zh" ? t("lang.zh") : t("lang.en")}`;
+  });
+}
+
 function enrichForDisplay(entity, idx) {
   const rank = idx + 1;
   const chg1d = entity.chg1d ?? (((rank % 7) - 3) * 0.15);
@@ -50,6 +231,15 @@ function setTicker() {
   el.textContent = a.join("  •  ");
 }
 
+function bindLangToggle() {
+  const btn = document.querySelector("[data-lang-toggle]");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const next = getLang() === "zh" ? "en" : "zh";
+    setLang(next);
+  });
+}
+
 function openCmdPalette() {
   const b = document.querySelector("#cmdPalette");
   if (!b) return;
@@ -96,7 +286,10 @@ function routeCmd(cmdRaw) {
 function bindTopCmd() {
   const input = document.querySelector("[data-cmd-input]");
   if (!input) return;
-  input.placeholder = "Cmd: index | open <id/name> | find <text> | help";
+  input.setAttribute("data-i18n-ph", "cmd.placeholder");
+  I18N.zh["cmd.placeholder"] = "Cmd: index | open <id/name> | find <text> | help";
+  I18N.en["cmd.placeholder"] = "Cmd: index | open <id/name> | find <text> | help";
+  applyI18n();
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       routeCmd(input.value);
@@ -173,7 +366,7 @@ function renderIndex() {
       <td>
         <div class="rowTitle">
           <div class="name"><a href="./entity.html?id=${encodeURIComponent(e.id)}">${String(idx + 1).padStart(3, "0")}  ${e.name}</a></div>
-          <div class="meta">${e.id} • ${e.type.toUpperCase()} • ${e.category ?? "—"} • ${e.tags.slice(0,2).join(", ")}</div>
+          <div class="meta">${e.id} • ${e.type.toUpperCase()} • ${catLabel(e.category)} • ${e.tags.slice(0,2).join(", ")}</div>
         </div>
       </td>
       <td>${fmtUsdB(e.snw)}</td>
@@ -213,7 +406,7 @@ function renderEntity() {
   const e = enrichForDisplay(base, idx);
 
   root.querySelector("[data-entity-name]").textContent = e.name;
-  root.querySelector("[data-entity-meta]").textContent = `${e.id} • ${e.type.toUpperCase()} • ${e.category ?? "—"} • asOf ${window.DEMO.asOf}`;
+  root.querySelector("[data-entity-meta]").textContent = `${e.id} • ${e.type.toUpperCase()} • ${catLabel(e.category)} • asOf ${window.DEMO.asOf}`;
   root.querySelector("[data-entity-snw]").textContent = fmtUsdB(e.snw);
 
   const chg = root.querySelector("[data-entity-chg]");
@@ -268,6 +461,8 @@ function init() {
     // no-op: data.js not loaded
     return;
   }
+  applyI18n();
+  bindLangToggle();
   bindTopCmd();
   bindShortcuts();
   mountPalette();

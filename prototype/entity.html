@@ -11,14 +11,15 @@
       <div class="topbar">
         <div class="logo">
           <div class="logoMark"></div>
-          <div class="logoText">SNW • ENTITY VIEW</div>
+          <div class="logoText" data-i18n="app.logo.entity">SNW • ENTITY VIEW</div>
         </div>
         <div class="cmd">
-          <div class="cmdLabel">CMD</div>
+          <div class="cmdLabel" data-i18n="app.cmd">CMD</div>
           <input class="cmdInput" data-cmd-input spellcheck="false" />
-          <div class="pill"><strong>⌘/Ctrl</strong>+<strong>K</strong> palette</div>
+          <div class="pill" data-i18n="app.paletteHint"><strong>⌘/Ctrl</strong>+<strong>K</strong> palette</div>
         </div>
-        <a class="pill" href="./index.html">BACK <strong>INDEX</strong></a>
+        <button class="pill" type="button" data-lang-toggle data-lang-pill>Language: English</button>
+        <a class="pill" href="./index.html"><span data-i18n="app.backIndex">BACK INDEX</span></a>
       </div>
 
       <div class="main">
@@ -28,9 +29,9 @@
             <span class="kbd">E</span>
           </div>
           <div class="nav">
-            <a href="./index.html"><span>SNW INDEX</span><span class="kbd">I</span></a>
-            <a class="active" href="#"><span>ENTITY</span><span class="kbd">O</span></a>
-            <a href="./help.html"><span>HELP</span><span class="kbd">?</span></a>
+            <a href="./index.html"><span data-i18n="nav.index">SNW INDEX</span><span class="kbd">I</span></a>
+            <a class="active" href="#"><span data-i18n="nav.entity">ENTITY</span><span class="kbd">O</span></a>
+            <a href="./help.html"><span data-i18n="nav.help">HELP</span><span class="kbd">?</span></a>
           </div>
           <div class="panel">
             <p class="panelTitle">PROFILE</p>
@@ -48,7 +49,7 @@
           <div class="contentHeader">
             <div class="title">
               <h1 data-entity-name>—</h1>
-              <div class="subtitle">Explainable breakdown + time series (prototype)</div>
+              <div class="subtitle" data-i18n="entity.breakdown">Explainable breakdown + time series (prototype)</div>
             </div>
             <div class="toolbar">
               <button class="btn primary" onclick="location.href='./index.html'">INDEX</button>
@@ -57,12 +58,12 @@
           </div>
 
           <div class="panel">
-            <p class="panelTitle">SNW HISTORY <span class="subtitle">demo sparkline</span></p>
+            <p class="panelTitle"><span data-i18n="entity.history">SNW HISTORY</span> <span class="subtitle">demo sparkline</span></p>
             <div class="spark" data-entity-spark></div>
           </div>
 
           <div class="panel">
-            <p class="panelTitle">COMPONENTS <span class="subtitle">what drives SNW</span></p>
+            <p class="panelTitle"><span data-i18n="entity.components">COMPONENTS</span> <span class="subtitle">what drives SNW</span></p>
             <div class="tableWrap" style="max-height: 360px;">
               <table class="table">
                 <thead>
@@ -78,10 +79,9 @@
           </div>
 
           <div class="panel">
-            <p class="panelTitle">AUDIT TRAIL <span class="subtitle">manual inputs + sources (placeholder)</span></p>
-            <div class="subtitle">
-              MVP 建议：每个输入（GPU 数量、电力合同、收入口径、钱包地址、倍数参数）都能挂 `source_document`，并带生效期。
-              计算时将关键输入引用写入 `asset_valuation_snapshot.inputs_json` 便于回放。
+            <p class="panelTitle"><span data-i18n="entity.audit">AUDIT TRAIL</span> <span class="subtitle">manual inputs + sources (placeholder)</span></p>
+            <div class="subtitle" data-i18n="entity.auditHint">
+              MVP：每个输入都挂 source_document 与生效期；计算时把关键输入写入 inputs_json 便于回放。
             </div>
           </div>
         </section>
@@ -94,6 +94,7 @@
           <div class="kv">
             <div class="k">SNW INPUTS</div><div class="v"><a href="../docs/SNW_INPUTS.md">docs/SNW_INPUTS.md</a></div>
             <div class="k">REFRESH</div><div class="v"><a href="../docs/REALTIME_REFRESH.md">docs/REALTIME_REFRESH.md</a></div>
+            <div class="k">SNW RULES</div><div class="v"><a href="../docs/SNW_RULES.md">docs/SNW_RULES.md</a></div>
             <div class="k">DB</div><div class="v"><a href="../db/schema.sql">db/schema.sql</a></div>
             <div class="k">PLANNING</div><div class="v"><a href="../PLANNING.md">PLANNING.md</a></div>
           </div>

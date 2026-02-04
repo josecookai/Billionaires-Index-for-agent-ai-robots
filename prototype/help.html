@@ -11,14 +11,15 @@
       <div class="topbar">
         <div class="logo">
           <div class="logoMark"></div>
-          <div class="logoText">SNW • HELP</div>
+          <div class="logoText" data-i18n="app.logo.help">SNW • HELP</div>
         </div>
         <div class="cmd">
-          <div class="cmdLabel">CMD</div>
+          <div class="cmdLabel" data-i18n="app.cmd">CMD</div>
           <input class="cmdInput" data-cmd-input spellcheck="false" />
-          <div class="pill"><strong>⌘/Ctrl</strong>+<strong>K</strong> palette</div>
+          <div class="pill" data-i18n="app.paletteHint"><strong>⌘/Ctrl</strong>+<strong>K</strong> palette</div>
         </div>
-        <a class="pill" href="./index.html">BACK <strong>INDEX</strong></a>
+        <button class="pill" type="button" data-lang-toggle data-lang-pill>Language: English</button>
+        <a class="pill" href="./index.html"><span data-i18n="app.backIndex">BACK INDEX</span></a>
       </div>
 
       <div class="main">
@@ -28,20 +29,18 @@
             <span class="kbd">G</span>
           </div>
           <div class="nav">
-            <a href="./index.html"><span>SNW INDEX</span><span class="kbd">I</span></a>
-            <a href="./entity.html?id=E-001"><span>ENTITY</span><span class="kbd">O</span></a>
-            <a class="active" href="./help.html"><span>HELP</span><span class="kbd">?</span></a>
+            <a href="./index.html"><span data-i18n="nav.index">SNW INDEX</span><span class="kbd">I</span></a>
+            <a href="./entity.html?id=E-001"><span data-i18n="nav.entity">ENTITY</span><span class="kbd">O</span></a>
+            <a class="active" href="./help.html"><span data-i18n="nav.help">HELP</span><span class="kbd">?</span></a>
           </div>
           <div class="panel">
-            <p class="panelTitle">UI ARCH</p>
+            <p class="panelTitle" data-i18n="help.arch">UI ARCH</p>
+            <div class="subtitle" data-i18n="help.archHint">
+              三栏结构（Bloomberg-terminal 风格）：Left 导航/模块；Center 主视图；Right 上下文/解释/动作；底部 ticker 负责“实时感”。
+            </div>
+            <div style="height:10px"></div>
             <div class="subtitle">
-              三栏结构（Bloomberg-terminal 风格）：
-              <div style="height:8px"></div>
-              <div><span class="pill">Left</span> 导航/模块</div>
-              <div><span class="pill">Center</span> 主视图（表格/图）</div>
-              <div><span class="pill">Right</span> 上下文/解释/快捷动作</div>
-              <div style="height:8px"></div>
-              底部 ticker：用于“实时感”的轻量信息流。
+              <a href="../docs/SNW_RULES.md">docs/SNW_RULES.md</a>
             </div>
           </div>
         </aside>
@@ -49,8 +48,8 @@
         <section class="content">
           <div class="contentHeader">
             <div class="title">
-              <h1>KEYBOARD-FIRST PROTOTYPE</h1>
-              <div class="subtitle">Dense, auditable, explainable SNW index UI.</div>
+              <h1 data-i18n="help.title">KEYBOARD-FIRST PROTOTYPE</h1>
+              <div class="subtitle" data-i18n="help.subtitle">Dense, auditable, explainable SNW index UI.</div>
             </div>
             <div class="toolbar">
               <button class="btn primary" onclick="location.href='./index.html'">INDEX</button>
@@ -59,7 +58,7 @@
           </div>
 
           <div class="panel">
-            <p class="panelTitle">COMMANDS</p>
+            <p class="panelTitle" data-i18n="help.commands">COMMANDS</p>
             <div class="cmdGrid">
               <div class="cmdCard"><div class="c">index</div><div class="d">打开榜单（SNW Index）</div></div>
               <div class="cmdCard"><div class="c">open &lt;id/name&gt;</div><div class="d">打开实体，例如 open e-003 / open mosaic</div></div>
@@ -69,7 +68,7 @@
           </div>
 
           <div class="panel">
-            <p class="panelTitle">SCREEN LAYOUT (WIREFRAME)</p>
+            <p class="panelTitle" data-i18n="help.layout">SCREEN LAYOUT (WIREFRAME)</p>
             <pre class="cmdCard" style="margin:0; white-space:pre; overflow:auto;">
 ┌──────────────────────────────────────── TOP CMD BAR ────────────────────────────────────────┐
 │  SNW • AI/ROBOTICS • INDEX     CMD: [ index | open e-001 | find robotics | help ]   ASOF    │
@@ -86,7 +85,7 @@
           </div>
 
           <div class="panel">
-            <p class="panelTitle">DESIGN TOKENS</p>
+            <p class="panelTitle" data-i18n="help.tokens">DESIGN TOKENS</p>
             <div class="subtitle">
               字体：主 UI 使用 sans；数据/表格/命令行使用 monospace。<br/>
               颜色：背景深色；强调色 amber（计算/告警）；上涨 green；下跌 red；链接蓝。<br/>
