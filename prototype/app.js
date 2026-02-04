@@ -2,6 +2,29 @@ const fmtUsdB = (b) => `${b.toFixed(2)}B`;
 const fmtChg = (v) => (v >= 0 ? `+${v.toFixed(2)}B` : `${v.toFixed(2)}B`);
 const clsChg = (v) => (v > 0 ? "good" : v < 0 ? "bad" : "neutral");
 
+function enrichForDisplay(entity, idx) {
+  const rank = idx + 1;
+  const chg1d = entity.chg1d ?? (((rank % 7) - 3) * 0.15);
+  const ytd = entity.ytd ?? (((rank % 9) - 4) * 0.55);
+  const chg1dPct = entity.chg1dPct ?? ((chg1d / Math.max(0.01, entity.snw)) * 100);
+  const ytdPct = entity.ytdPct ?? ((ytd / Math.max(0.01, entity.snw)) * 100);
+
+  const spark =
+    entity.spark ??
+    (() => {
+      const out = [];
+      const base = entity.snw;
+      for (let i = 0; i < 10; i++) {
+        const drift = (i / 9) * (chg1d * 2);
+        const wobble = Math.sin((i + rank) * 0.9) * 0.25;
+        out.push(Math.max(0.01, base * (0.86 + i * 0.015) + drift + wobble));
+      }
+      return out;
+    })();
+
+  return { ...entity, chg1d, ytd, chg1dPct, ytdPct, spark };
+}
+
 function sparkPath(values, width = 320, height = 84, pad = 10) {
   if (!values?.length) return "";
   const min = Math.min(...values);
@@ -20,7 +43,7 @@ function setTicker() {
   const el = document.querySelector("[data-ticker]");
   if (!el) return;
   const a = [];
-  const top = [...window.DEMO.universe].sort((x, y) => y.snw - x.snw);
+  const top = [...window.DEMO.universe].sort((x, y) => y.snw - x.snw).map((e, i) => enrichForDisplay(e, i));
   for (const e of top.slice(0, 5)) {
     a.push(`${e.name.toUpperCase()} ${fmtUsdB(e.snw)} ${fmtChg(e.chg1d)} (${e.chg1dPct.toFixed(2)}%)`);
   }
@@ -138,7 +161,7 @@ function renderIndex() {
   const q = (url.searchParams.get("q") || "").trim().toLowerCase();
   const t = (url.searchParams.get("type") || "").trim().toLowerCase();
 
-  let rows = [...window.DEMO.universe].sort((a, b) => b.snw - a.snw);
+  let rows = [...window.DEMO.universe].sort((a, b) => b.snw - a.snw).map((e, i) => enrichForDisplay(e, i));
   if (t) rows = rows.filter((e) => e.type === t);
   if (q) rows = rows.filter((e) => e.name.toLowerCase().includes(q) || e.id.toLowerCase().includes(q) || e.tags.join(" ").toLowerCase().includes(q));
 
@@ -150,7 +173,7 @@ function renderIndex() {
       <td>
         <div class="rowTitle">
           <div class="name"><a href="./entity.html?id=${encodeURIComponent(e.id)}">${String(idx + 1).padStart(3, "0")}  ${e.name}</a></div>
-          <div class="meta">${e.id} • ${e.type.toUpperCase()} • ${e.country} • ${e.tags.slice(0,2).join(", ")}</div>
+          <div class="meta">${e.id} • ${e.type.toUpperCase()} • ${e.category ?? "—"} • ${e.tags.slice(0,2).join(", ")}</div>
         </div>
       </td>
       <td>${fmtUsdB(e.snw)}</td>
@@ -185,10 +208,12 @@ function renderEntity() {
   if (!root) return;
   const url = new URL(window.location.href);
   const id = url.searchParams.get("id") || "E-001";
-  const e = window.DEMO.universe.find((x) => x.id === id) || window.DEMO.universe[0];
+  const base = window.DEMO.universe.find((x) => x.id === id) || window.DEMO.universe[0];
+  const idx = Math.max(0, window.DEMO.universe.findIndex((x) => x.id === base.id));
+  const e = enrichForDisplay(base, idx);
 
   root.querySelector("[data-entity-name]").textContent = e.name;
-  root.querySelector("[data-entity-meta]").textContent = `${e.id} • ${e.type.toUpperCase()} • ${e.country} • asOf ${window.DEMO.asOf}`;
+  root.querySelector("[data-entity-meta]").textContent = `${e.id} • ${e.type.toUpperCase()} • ${e.category ?? "—"} • asOf ${window.DEMO.asOf}`;
   root.querySelector("[data-entity-snw]").textContent = fmtUsdB(e.snw);
 
   const chg = root.querySelector("[data-entity-chg]");
