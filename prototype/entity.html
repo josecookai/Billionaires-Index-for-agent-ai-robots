@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entity — SNW Terminal Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app" data-entity-root>
+      <div class="topbar">
+        <div class="logo">
+          <div class="logoMark"></div>
+          <div class="logoText">SNW • ENTITY VIEW</div>
+        </div>
+        <div class="cmd">
+          <div class="cmdLabel">CMD</div>
+          <input class="cmdInput" data-cmd-input spellcheck="false" />
+          <div class="pill"><strong>⌘/Ctrl</strong>+<strong>K</strong> palette</div>
+        </div>
+        <a class="pill" href="./index.html">BACK <strong>INDEX</strong></a>
+      </div>
+
+      <div class="main">
+        <aside class="sidebar">
+          <div class="sidebarHeader">
+            <span>ENTITY</span>
+            <span class="kbd">E</span>
+          </div>
+          <div class="nav">
+            <a href="./index.html"><span>SNW INDEX</span><span class="kbd">I</span></a>
+            <a class="active" href="#"><span>ENTITY</span><span class="kbd">O</span></a>
+            <a href="./help.html"><span>HELP</span><span class="kbd">?</span></a>
+          </div>
+          <div class="panel">
+            <p class="panelTitle">PROFILE</p>
+            <div class="subtitle" data-entity-meta>—</div>
+            <div style="height:10px"></div>
+            <div class="filters" style="gap:6px;">
+              <span class="pill">SNW <strong data-entity-snw>—</strong></span>
+              <span class="pill" data-entity-chg>—</span>
+              <span class="pill" data-entity-ytd>—</span>
+            </div>
+          </div>
+        </aside>
+
+        <section class="content">
+          <div class="contentHeader">
+            <div class="title">
+              <h1 data-entity-name>—</h1>
+              <div class="subtitle">Explainable breakdown + time series (prototype)</div>
+            </div>
+            <div class="toolbar">
+              <button class="btn primary" onclick="location.href='./index.html'">INDEX</button>
+              <button class="btn" onclick="location.href='./help.html'">HELP</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <p class="panelTitle">SNW HISTORY <span class="subtitle">demo sparkline</span></p>
+            <div class="spark" data-entity-spark></div>
+          </div>
+
+          <div class="panel">
+            <p class="panelTitle">COMPONENTS <span class="subtitle">what drives SNW</span></p>
+            <div class="tableWrap" style="max-height: 360px;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="text-align:left">TERM</th>
+                    <th>VALUE</th>
+                    <th style="text-align:left">NOTES</th>
+                  </tr>
+                </thead>
+                <tbody data-entity-components></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <p class="panelTitle">AUDIT TRAIL <span class="subtitle">manual inputs + sources (placeholder)</span></p>
+            <div class="subtitle">
+              MVP 建议：每个输入（GPU 数量、电力合同、收入口径、钱包地址、倍数参数）都能挂 `source_document`，并带生效期。
+              计算时将关键输入引用写入 `asset_valuation_snapshot.inputs_json` 便于回放。
+            </div>
+          </div>
+        </section>
+
+        <aside class="rightbar">
+          <div class="rightbarHeader">
+            <span>QUICK LINKS</span>
+            <span class="badge"><span class="dot neutral"></span>docs</span>
+          </div>
+          <div class="kv">
+            <div class="k">SNW INPUTS</div><div class="v"><a href="../docs/SNW_INPUTS.md">docs/SNW_INPUTS.md</a></div>
+            <div class="k">REFRESH</div><div class="v"><a href="../docs/REALTIME_REFRESH.md">docs/REALTIME_REFRESH.md</a></div>
+            <div class="k">DB</div><div class="v"><a href="../db/schema.sql">db/schema.sql</a></div>
+            <div class="k">PLANNING</div><div class="v"><a href="../PLANNING.md">PLANNING.md</a></div>
+          </div>
+          <div class="panel">
+            <p class="panelTitle">KEYBOARD</p>
+            <div class="subtitle">
+              <div><span class="pill"><strong>⌘/Ctrl</strong>+<strong>K</strong></span> palette</div>
+              <div style="height:6px"></div>
+              <div><span class="pill">index</span> <span class="pill">open e-002</span> <span class="pill">help</span></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="ticker"><span>FEED</span><span class="sep">|</span><span data-ticker>—</span></div>
+    </div>
+
+    <div class="modalBackdrop" id="cmdPalette" role="dialog" aria-modal="true">
+      <div class="modal">
+        <div class="modalHeader">
+          <span>COMMAND PALETTE</span>
+          <button class="btn" data-close>ESC</button>
+        </div>
+        <div class="modalBody">
+          <div class="cmd" style="box-shadow:none;">
+            <div class="cmdLabel">></div>
+            <input class="cmdInput" spellcheck="false" />
+            <div class="pill">Enter</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="cmdGrid">
+            <div class="cmdCard"><div class="c">index</div><div class="d">回到榜单页</div></div>
+            <div class="cmdCard"><div class="c">open &lt;id/name&gt;</div><div class="d">打开实体详情</div></div>
+            <div class="cmdCard"><div class="c">find &lt;text&gt;</div><div class="d">搜索（demo）</div></div>
+            <div class="cmdCard"><div class="c">help</div><div class="d">快捷键与页面架构说明</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

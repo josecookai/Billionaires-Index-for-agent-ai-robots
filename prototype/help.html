@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Help — SNW Terminal Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="topbar">
+        <div class="logo">
+          <div class="logoMark"></div>
+          <div class="logoText">SNW • HELP</div>
+        </div>
+        <div class="cmd">
+          <div class="cmdLabel">CMD</div>
+          <input class="cmdInput" data-cmd-input spellcheck="false" />
+          <div class="pill"><strong>⌘/Ctrl</strong>+<strong>K</strong> palette</div>
+        </div>
+        <a class="pill" href="./index.html">BACK <strong>INDEX</strong></a>
+      </div>
+
+      <div class="main">
+        <aside class="sidebar">
+          <div class="sidebarHeader">
+            <span>NAV</span>
+            <span class="kbd">G</span>
+          </div>
+          <div class="nav">
+            <a href="./index.html"><span>SNW INDEX</span><span class="kbd">I</span></a>
+            <a href="./entity.html?id=E-001"><span>ENTITY</span><span class="kbd">O</span></a>
+            <a class="active" href="./help.html"><span>HELP</span><span class="kbd">?</span></a>
+          </div>
+          <div class="panel">
+            <p class="panelTitle">UI ARCH</p>
+            <div class="subtitle">
+              三栏结构（Bloomberg-terminal 风格）：
+              <div style="height:8px"></div>
+              <div><span class="pill">Left</span> 导航/模块</div>
+              <div><span class="pill">Center</span> 主视图（表格/图）</div>
+              <div><span class="pill">Right</span> 上下文/解释/快捷动作</div>
+              <div style="height:8px"></div>
+              底部 ticker：用于“实时感”的轻量信息流。
+            </div>
+          </div>
+        </aside>
+
+        <section class="content">
+          <div class="contentHeader">
+            <div class="title">
+              <h1>KEYBOARD-FIRST PROTOTYPE</h1>
+              <div class="subtitle">Dense, auditable, explainable SNW index UI.</div>
+            </div>
+            <div class="toolbar">
+              <button class="btn primary" onclick="location.href='./index.html'">INDEX</button>
+              <button class="btn" onclick="location.href='./entity.html?id=E-001'">ENTITY</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <p class="panelTitle">COMMANDS</p>
+            <div class="cmdGrid">
+              <div class="cmdCard"><div class="c">index</div><div class="d">打开榜单（SNW Index）</div></div>
+              <div class="cmdCard"><div class="c">open &lt;id/name&gt;</div><div class="d">打开实体，例如 open e-003 / open mosaic</div></div>
+              <div class="cmdCard"><div class="c">find &lt;text&gt;</div><div class="d">搜索（demo：以 URL 参数实现）</div></div>
+              <div class="cmdCard"><div class="c">help</div><div class="d">打开帮助页</div></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <p class="panelTitle">SCREEN LAYOUT (WIREFRAME)</p>
+            <pre class="cmdCard" style="margin:0; white-space:pre; overflow:auto;">
+┌──────────────────────────────────────── TOP CMD BAR ────────────────────────────────────────┐
+│  SNW • AI/ROBOTICS • INDEX     CMD: [ index | open e-001 | find robotics | help ]   ASOF    │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+┌──────────── LEFT NAV ────────────┐┌──────────────────── CENTER VIEW ──────────────────────┐┌──────── RIGHT CONTEXT ────────┐
+│  INDEX / ENTITY / HELP / DOCS     ││  Filters (type/tag/q)                                  ││  Hover row summary             │
+│  Notes / Alerts / Saved views     ││  Dense table (rank, SNW, Δ1D, YTD, tags)               ││  Sparkline + breakdown          │
+│                                   ││  Sticky header + quick actions                         ││  Actions / audit hints          │
+└───────────────────────────────────┘└────────────────────────────────────────────────────────┘└───────────────────────────────┘
+┌────────────────────────────────────────── BOTTOM TICKER ───────────────────────────────────┐
+│ FEED | TOP MOVERS | ...                                                                      │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+            </pre>
+          </div>
+
+          <div class="panel">
+            <p class="panelTitle">DESIGN TOKENS</p>
+            <div class="subtitle">
+              字体：主 UI 使用 sans；数据/表格/命令行使用 monospace。<br/>
+              颜色：背景深色；强调色 amber（计算/告警）；上涨 green；下跌 red；链接蓝。<br/>
+              密度：表格为主，图表为辅（sparkline/小图），右侧解释面板常驻。
+            </div>
+          </div>
+        </section>
+
+        <aside class="rightbar">
+          <div class="rightbarHeader">
+            <span>LINKS</span>
+            <span class="badge"><span class="dot neutral"></span>repo</span>
+          </div>
+          <div class="kv">
+            <div class="k">PROTOTYPE</div><div class="v"><a href="./index.html">prototype/index.html</a></div>
+            <div class="k">SNW INPUTS</div><div class="v"><a href="../docs/SNW_INPUTS.md">docs/SNW_INPUTS.md</a></div>
+            <div class="k">DB</div><div class="v"><a href="../db/schema.sql">db/schema.sql</a></div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="ticker"><span>FEED</span><span class="sep">|</span><span data-ticker>—</span></div>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SNW Index — Terminal Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="topbar">
+        <div class="logo">
+          <div class="logoMark"></div>
+          <div class="logoText">SNW • AI/ROBOTICS • INDEX</div>
+        </div>
+        <div class="cmd">
+          <div class="cmdLabel">CMD</div>
+          <input class="cmdInput" data-cmd-input spellcheck="false" />
+          <div class="pill"><strong>⌘/Ctrl</strong>+<strong>K</strong> palette</div>
+        </div>
+        <div class="pill">ASOF <strong>2026-02-04</strong></div>
+      </div>
+
+      <div class="main">
+        <aside class="sidebar">
+          <div class="sidebarHeader">
+            <span>NAV</span>
+            <span class="kbd">G</span>
+          </div>
+          <div class="nav">
+            <a class="active" href="./index.html"><span>SNW INDEX</span><span class="kbd">I</span></a>
+            <a href="./help.html"><span>HELP</span><span class="kbd">?</span></a>
+            <a href="../PLANNING.md"><span>PLANNING</span><span class="kbd">P</span></a>
+            <a href="../docs/SNW_INPUTS.md"><span>SNW INPUTS</span><span class="kbd">S</span></a>
+            <a href="../db/schema.sql"><span>DB SCHEMA</span><span class="kbd">D</span></a>
+          </div>
+          <div class="panel">
+            <p class="panelTitle">NOTES <span class="badge"><span class="dot neutral"></span>prototype</span></p>
+            <div class="subtitle">Bloomberg-terminal 风格：密度高、键盘驱动、三栏架构（导航 / 主内容 / 上下文）。</div>
+          </div>
+        </aside>
+
+        <section class="content">
+          <div class="contentHeader">
+            <div class="title">
+              <h1>AI/ROBOTICS — TOP 200 (DEMO)</h1>
+              <div class="subtitle">SNW = (V_compute + V_phys)*gamma + V_econ*mu + V_crypto + [V_data]</div>
+            </div>
+            <div class="toolbar">
+              <button class="btn primary" onclick="location.href='./entity.html?id=E-001'">OPEN #1</button>
+              <button class="btn" onclick="location.href='./help.html'">HELP</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <p class="panelTitle">FILTERS <span class="subtitle">hover row → right panel</span></p>
+            <div class="filters">
+              <div class="select">
+                <span>TYPE</span>
+                <select data-filter-type>
+                  <option value="">all</option>
+                  <option value="company">company</option>
+                  <option value="agent">agent</option>
+                  <option value="robot_fleet">robot_fleet</option>
+                </select>
+              </div>
+              <div class="select">
+                <span>Q</span>
+                <span class="subtitle">use CMD: <code style="color:inherit">find &lt;text&gt;</code></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tableWrap">
+            <table class="table" data-index-table>
+              <thead>
+                <tr>
+                  <th>RANK • ENTITY</th>
+                  <th>SNW</th>
+                  <th>Δ1D</th>
+                  <th>Δ1D%</th>
+                  <th>YTD</th>
+                  <th>YTD%</th>
+                  <th>TYPE</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="rightbar" data-rightbar>
+          <div class="rightbarHeader">
+            <span>CONTEXT</span>
+            <span class="badge"><span class="dot neutral"></span>live</span>
+          </div>
+          <div class="kv">
+            <div class="k">ENTITY</div><div class="v" data-rb-name>—</div>
+            <div class="k">META</div><div class="v" data-rb-type>—</div>
+            <div class="k">SNW</div><div class="v" data-rb-snw>—</div>
+            <div class="k">Δ1D</div><div class="v" data-rb-chg>—</div>
+            <div class="k">YTD</div><div class="v" data-rb-ytd>—</div>
+            <div class="k">TAGS</div><div class="v" data-rb-tags>—</div>
+          </div>
+          <div class="spark" data-rb-spark></div>
+          <div class="panel">
+            <p class="panelTitle">ACTIONS</p>
+            <div class="subtitle">
+              <div style="margin-bottom:8px;">CMD examples:</div>
+              <div><span class="pill">index</span> <span class="pill">open e-003</span> <span class="pill">find robotics</span> <span class="pill">help</span></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="ticker"><span>FEED</span><span class="sep">|</span><span data-ticker>—</span></div>
+    </div>
+
+    <div class="modalBackdrop" id="cmdPalette" role="dialog" aria-modal="true">
+      <div class="modal">
+        <div class="modalHeader">
+          <span>COMMAND PALETTE</span>
+          <button class="btn" data-close>ESC</button>
+        </div>
+        <div class="modalBody">
+          <div class="cmd" style="box-shadow:none;">
+            <div class="cmdLabel">></div>
+            <input class="cmdInput" spellcheck="false" />
+            <div class="pill">Enter</div>
+          </div>
+          <div style="height:10px"></div>
+          <div class="cmdGrid">
+            <div class="cmdCard"><div class="c">index</div><div class="d">回到榜单页</div></div>
+            <div class="cmdCard"><div class="c">open &lt;id/name&gt;</div><div class="d">打开实体详情，例如 open e-001 或 open mosaic</div></div>
+            <div class="cmdCard"><div class="c">find &lt;text&gt;</div><div class="d">搜索（demo）</div></div>
+            <div class="cmdCard"><div class="c">help</div><div class="d">快捷键与页面架构说明</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
